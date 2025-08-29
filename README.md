@@ -24,38 +24,37 @@ LIDAR–ultrasonic–camera data collection script that records the following RO
 ## Deployment Guide
 
 ### Environment Preparation
-1. In your browser, visit https://smart.kabam.ai/login, enter your account and password, select the Halo with the corresponding ID, and enter the Terminal.
-2. Create a shared directory and prepare to clone the repository:
+Visit https://smart.kabam.ai/login, enter your account and password, select the Halo with the corresponding ID, and enter the Terminal.
+Create a shared directory, note to modify the shared directory and its subfolder permissions:
 ```bash
 sudo mkdir -p ~/FAT_TOOLS/ultrasonic
+sudo chown -R ubuntu:ubuntu ~/FAT_TOOLS/
 cd ~/FAT_TOOLS/ultrasonic/
 ```
-#### Clone the repository
-```bash
-sudo git clone http://192.168.161.40:3000/Erich/FAT_HALO.git
-```
-After cloning, you should see at least four Python scripts and two bash scripts.
-#### Or connect your personal computer to the Halo Wi‑Fi and scp the scripts above to Halo one by one
 
-### Script Initialization
-3. Set up a virtual environment and install dependencies:
+### Transfer Scripts
+Copy the scripts from FAT_HALO.zip in your PC to /home/ubuntu/FAT_TOOLS/ultrasonic/ (using any method like scp)
+
+### Set Up Virtual Environment and Install Dependencies
 ```bash
 cd /home/ubuntu/FAT_TOOLS/ultrasonic/FAT_HALO
 sudo python3 -m venv ultrasonic_env
-sudo apt update 
-pip install pyserial
-
+source ultrasonic_env/bin/activate
 ```
-4. Use the scripts to tune the KS236 ultrasonic energy and P-value online to eliminate non-existent noise detected by the ultrasonic sensors.
+
+### Use Scripts to Tune KS236 Ultrasonic Energy and P-value Online to Eliminate Non-existent Noise Detected by Ultrasonic Sensors
 Note: Before each use, be sure to run the following two commands; otherwise the scripts will not work.
 ```bash
 cd /home/ubuntu/FAT_TOOLS/ultrasonic/FAT_HALO/
 source ultrasonic_env/bin/activate
-
+```
+If you get "No module named 'pyserial'", then run:
+```bash
+pip install pyserial
 ```
 For subsequent online tuning of the ultrasonic sensors, refer to `UltrasonicSensors_SOP(CN)v1.3.pdf` or `UltrasonicSensors_SOP(EN)v1.3.pdf` in this repository. For basic script usage, see Part 1; for the principles and methods of ultrasonic probe noise tuning, see Part 2.
 
-5. Use the one-click script to configure ultrasonic parameters (optional, for quickly restoring ultrasonic parameters and state):
+Use the one-click script to configure ultrasonic parameters (optional, for quickly restoring ultrasonic parameters and state):
 ```bash
 cd /home/ubuntu/FAT_TOOLS/ultrasonic/FAT_HALO/
 source ultrasonic_set.bash
