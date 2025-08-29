@@ -24,38 +24,37 @@
 ## 部署指南
 
 ### 环境准备
-1. 浏览器输入https://smart.kabam.ai/login，输入你的账号密码，选择对应编号的Halo,并进入终端Terminal
-2. 创建公共目录并克隆仓库：
+浏览器输入https://smart.kabam.ai/login，输入你的账号密码，选择对应编号的Halo,并进入终端Terminal
+创建公共目录，注意修改公共目录及其子文件夹权限：
 ```bash
 sudo mkdir -p ~/FAT_TOOLS/ultrasonic
+sudo chown -R ubuntu:ubuntu ~/FAT_TOOLS/
 cd ~/FAT_TOOLS/ultrasonic/
 ```
-#### 克隆仓库
-```bash
-sudo git clone http://192.168.161.40:3000/Erich/FAT_HALO.git
-```
-克隆成功后你应该至少看到4个python脚本和2个bash脚本
-#### 或者个人电脑连接Halo的wifi并将上述脚本逐一scp到Halo
+### 传输脚本
+把FAT_HALO.zip里的脚本copy进/home/ubuntu/FAT_TOOLS/ultrasonic/(任何类似scp的方法)
 
-### 脚本初始化
-3.搭建虚拟环境并安装依赖： 
+
+### 搭建虚拟环境并安装依赖
 ```bash
 cd /home/ubuntu/FAT_TOOLS/ultrasonic/FAT_HALO
 sudo python3 -m venv ultrasonic_env
-sudo apt update 
-pip install pyserial
-
+source ultrasonic_env/bin/activate
 ```
-4.使用脚本在线调试超声波KS236的能量和P值以消除超声波探测到的不存在的噪点。
+
+### 使用脚本在线调试超声波KS236的能量和P值以消除超声波探测到的不存在的噪点
 注意：每次使用脚本以前请务必执行下属两条语句，否则无法使用。
 ```bash
 cd /home/ubuntu/FAT_TOOLS/ultrasonic/FAT_HALO/
 source ultrasonic_env/bin/activate
-
+```
+如果提示No module named 'pyserial'，则执行：
+```bash
+pip install pyserial
 ```
 后续的对超声波的在线调试参考仓库中的`UltrasonicSensors_SOP(CN)v1.3.pdf`或者`UltrasonicSensors_SOP(EN)v1.3.pdf`。其中脚本的基本使用参考第一部分，超声波探头噪点调试的原理和方法参考第二部分
 
-5.使用脚本一键配置超声波参数(可选，用于快速还原超声波的参数和状态)：
+使用脚本一键配置超声波参数(可选，用于快速还原超声波的参数和状态)：
 ```bash
 cd /home/ubuntu/FAT_TOOLS/ultrasonic/FAT_HALO/
 source ultrasonic_set.bash
